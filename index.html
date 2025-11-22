@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionAI - Your Personal Style Assistant</title>
+    <meta name="description" content="AI-powered fashion stylist helping you create personalized lookbooks and outfit combinations">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👔</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Fashion<span>AI</span></h1>
+                <p>Your Personal Style Assistant</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+        <div class="app-wrapper">
+            <!-- Left column: Chat -->
+            <section class="chat-section">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>Chat with your stylist</h2>
+                        <span class="badge">AI Powered</span>
+                    </div>
+                    
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message assistant">
+                            <div class="message-content">
+                                <p>👋 Hi there! I'm your virtual fashion stylist. Tell me about your style preferences, and I'll create personalized outfit suggestions for you.</p>
+                                <p>You can tell me about:</p>
+                                <ul>
+                                    <li>Your preferred style (casual, formal, streetwear, etc.)</li>
+                                    <li>Favorite color palette</li>
+                                    <li>Season (summer, winter, etc.)</li>
+                                    <li>Occasion (party, work, vacation)</li>
+                                    <li>Gender identity (if you'd like to share)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="chat-form" class="chat-input">
+                        <input type="text" id="user-input" placeholder="Tell me about your style preferences..." required>
+                        <button type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- Right column: Lookbook & Filters -->
+            <section class="lookbook-section">
+                <div class="filter-container">
+                    <h2>Filters</h2>
+                    <div id="style-filter" class="filter-group">
+                        <h3>Style</h3>
+                        <div class="filter-options">
+                            <button data-filter="casual" class="filter-btn">Casual</button>
+                            <button data-filter="formal" class="filter-btn">Formal</button>
+                            <button data-filter="streetwear" class="filter-btn">Streetwear</button>
+                            <button data-filter="bohemian" class="filter-btn">Bohemian</button>
+                            <button data-filter="minimalist" class="filter-btn">Minimalist</button>
+                        </div>
+                    </div>
+                    
+                    <div id="season-filter" class="filter-group">
+                        <h3>Season</h3>
+                        <div class="filter-options">
+                            <button data-filter="summer" class="filter-btn">Summer</button>
+                            <button data-filter="fall" class="filter-btn">Fall</button>
+                            <button data-filter="winter" class="filter-btn">Winter</button>
+                            <button data-filter="spring" class="filter-btn">Spring</button>
+                        </div>
+                    </div>
+                    
+                    <div id="occasion-filter" class="filter-group">
+                        <h3>Occasion</h3>
+                        <div class="filter-options">
+                            <button data-filter="casual" class="filter-btn">Everyday</button>
+                            <button data-filter="work" class="filter-btn">Work</button>
+                            <button data-filter="party" class="filter-btn">Party</button>
+                            <button data-filter="date" class="filter-btn">Date</button>
+                            <button data-filter="vacation" class="filter-btn">Vacation</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lookbook-header">
+                    <h2>Your Lookbook</h2>
+                    <p>Personalized outfit suggestions will appear here</p>
+                </div>
+                
+                <div id="lookbook-carousel" class="lookbook-carousel">
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="empty-icon" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-9zm1 .5v8h3V4h-3z"/>
+                        </svg>
+                        <h3>No outfits yet</h3>
+                        <p>Chat with FashionAI to get personalized outfit suggestions tailored to your preferences</p>
+                    </div>
+                </div>
+                
+                <div id="carousel-controls" class="carousel-controls hidden">
+                    <button id="prev-btn" class="carousel-btn" aria-label="Previous outfit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="carousel-indicators" class="carousel-indicators"></div>
+                    <button id="next-btn" class="carousel-btn" aria-label="Next outfit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- SVG Patterns for Clothing - Will be used by JavaScript -->
+    <div class="svg-templates" style="display: none;">
+        <!-- T-shirt Template -->
+        <svg id="tshirt-template" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="clothing-fill" d="M95,30l-20-10c0,0-5,10-15,10S45,20,45,20L25,30c-5,2-5,8-3,12l5,10c1,2,4,3,6,1l7-5v52h40V48l7,5c2,2,5,1,6-1l5-10C100,38,100,32,95,30z"/>
+            <path class="clothing-stroke" d="M95,30l-20-10c0,0-5,10-15,10S45,20,45,20L25,30c-5,2-5,8-3,12l5,10c1,2,4,3,6,1l7-5v52h40V48l7,5c2,2,5,1,6-1l5-10C100,38,100,32,95,30z" fill="none" stroke="#000" stroke-width="2"/>
+        </svg>
+
+        <!-- Pants Template -->
+        <svg id="pants-template" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="clothing-fill" d="M85,20H35c-2.8,0-5,2.2-5,5v10l-5,65h25l5-50l5,50h25l-5-65V25C80,22.2,77.8,20,85,20z"/>
+            <path class="clothing-stroke" d="M85,20H35c-2.8,0-5,2.2-5,5v10l-5,65h25l5-50l5,50h25l-5-65V25C80,22.2,77.8,20,85,20z" fill="none" stroke="#000" stroke-width="2"/>
+        </svg>
+
+        <!-- Dress Template -->
+        <svg id="dress-template" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="clothing-fill" d="M90,30l-15-10c0,0-5,10-15,10S45,20,45,20L30,30c-3,2-5,6-5,10l10,60h50L95,40C95,36,93,32,90,30z"/>
+            <path class="clothing-stroke" d="M90,30l-15-10c0,0-5,10-15,10S45,20,45,20L30,30c-3,2-5,6-5,10l10,60h50L95,40C95,36,93,32,90,30z" fill="none" stroke="#000" stroke-width="2"/>
+            <path class="clothing-detail" d="M60,40v40" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
+        </svg>
+
+        <!-- Jacket Template -->
+        <svg id="jacket-template" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="clothing-fill" d="M90,25l-15-5c0,0-4,6-15,6S45,20,45,20l-15,5c-5,2-5,8-3,12l3,63h20V40c0,0,5,5,10,5s10-5,10-5v60h20l3-63C95,33,95,27,90,25z"/>
+            <path class="clothing-stroke" d="M90,25l-15-5c0,0-4,6-15,6S45,20,45,20l-15,5c-5,2-5,8-3,12l3,63h20V40c0,0,5,5,10,5s10-5,10-5v60h20l3-63C95,33,95,27,90,25z" fill="none" stroke="#000" stroke-width="2"/>
+            <path class="clothing-detail" d="M55,40v50 M65,40v50" fill="none" stroke="#000" stroke-width="1"/>
+        </svg>
+
+        <!-- Shoe Template -->
+        <svg id="shoe-template" width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+            <path class="clothing-fill" d="M100,40c0,0-20-5-40-5S20,30,20,30c-5-1-10,1-10,5v5h90v-5C100,42.2,100,40,100,40z"/>
+            <path class="clothing-stroke" d="M100,40c0,0-20-5-40-5S20,30,20,30c-5-1-10,1-10,5v5h90v-5C100,42.2,100,40,100,40z" fill="none" stroke="#000" stroke-width="2"/>
+            <path class="clothing-detail" d="M20,35c20,0,40,3,60,5" fill="none" stroke="#000" stroke-width="1"/>
+        </svg>
+    </div>
+
+    <!-- JS -->
+    <script src="js/app.js"></script>
+</body>
+</html> 
